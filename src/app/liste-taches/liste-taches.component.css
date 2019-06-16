@@ -1,0 +1,74 @@
+.bg-gradient-default{
+  background: linear-gradient(87deg, #43076b 0, #50428d 100%) !important
+}
+h1, p{
+  width: 100%;
+  color: black;
+}
+
+#head{
+  padding: 0;
+  margin-left: 380px;
+}
+textarea{
+  width: 400px !important;
+  border-width: 2px;
+    border-style: inset;
+    border-color: initial;
+    border-image: initial;
+}
+input, textarea{
+  margin-left: 20px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+textarea{
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border-color: #b8b2b2;
+}
+
+.card-header{
+  padding-right: 60px;
+  padding-left: 80px;
+}
+
+.card-body{
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.card-body a{
+  background-color: transparent;
+  border-color: blue;
+  color: black;
+  margin-top: -15px;
+}
+
+#checkDone{
+  background-color: transparent !important;
+  color: black;
+  margin-right: 10px;
+  margin-left: 0;
+  height: 25px;
+  width: 25px;
+  border-color: blue !important;
+}
+
+#result{
+  color: #50428d;
+  text-decoration: underline;
+}
+
+#charge{
+  color: #50428d;
+  text-decoration: wavy;
+}
+#result:hover, #charge:hover{
+  cursor: pointer;
+}
+label{
+  margin-top: 10px;
+}

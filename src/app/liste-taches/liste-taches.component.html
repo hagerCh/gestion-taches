@@ -1,0 +1,180 @@
+<div class="main-content">
+  <div class="header d-flex align-items-center"
+    style="min-height: 400px; background-image: url(); background-size: cover; background-position: center top;">
+    <!-- Mask -->
+    <span class="mask bg-gradient-default opacity-8"></span>
+    <!-- Header container -->
+    <div class="container-fluid d-flex align-items-center" id="head">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 text-center ">
+          <h1 class="display-2 text-white">Gestionnaire des tâches</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-12 order-xl-1">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <select class=" mb-0 card bg-secondary shadow" style="padding: 10px;" #t (change)="selectPhase(t.value)"
+                  id="selectPhaseBox">
+                  <option selected disabled>Selectionner une phase</option>
+                  <option *ngFor="let phase of phases" [value]="phase._id">Phase {{phase.titre}}</option>
+                </select>
+              </div>
+              <div class="col-8 text-right">
+                <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal"
+                  style="color:black; background-color: transparent; font-size: 18px; font-weight: 200; border-color: #b8b2b2;">Ajouter
+                  une tâche</a>
+              </div>
+            </div>
+          </div>
+          <div class="card-body" *ngFor="let tache of taches; let i= index">
+            <div class="row align-items-center">
+              <div class="col-4">
+                <p style="font-weight: 600; font-size: 20px;">
+                  {{i+1}}. {{tache.nom}}
+                </p>
+                <p style="font-weight: 400;">
+                  {{tache.description}}
+                </p>
+                <!-- <p style="font-weight: 200;">
+                  Phase: {{tache.phase.titre}}
+                </p> -->
+              </div>
+              <div style="border-left:1px solid #b8b2b2;height:100px; padding: 0;" class="col-0"></div>
+              <div class="col-2" style="margin-left: 30px">
+                <p style="font-weight: 500; font-size: 16px; text-decoration: underline">
+                  Durée estimée:
+                </p>
+                <p style="font-weight: 500;">
+                  {{tache.duree}}
+                </p>
+                <p style="font-weight: 500; font-size: 16px; text-decoration: underline">
+                  Charge:
+                </p>
+                <a style="font-weight: 500;" id="charge">
+                  {{tache.charge}}
+                </a>
+              </div>
+              <div style="border-left:1px solid #b8b2b2;height:80px; padding: 0;" class="col-0"></div>
+              <div class="col-2" style="margin-left: 30px">
+                <p style="font-weight: 500; font-size: 16px; text-decoration: underline">
+                  Résultat:
+                </p>
+                <a style="font-weight: 500;" id="result">
+                  {{tache.resultat}}
+                </a>
+              </div>
+              <div class="col-3 text-right">
+                <input id="checkDone" type="checkbox" [(ngModel)]="tache.done" (click)="doneChecked(tache)">
+                <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modifierModal"
+                  (click)="modifierTache(tache)">Modifier</a>
+                <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#supprimerModal"
+                  (click)="delete(tache)">Supprimer</a>
+              </div>
+            </div>
+            <hr class="my-4" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- add tache modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ajouter une tâche</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Tâche:</label> <br>
+              <input type="text" #title placeholder="nom"> <br>
+              <label>Description:</label> <br>
+              <textarea type="text" #description placeholder="description"></textarea> <br>
+              <label>Resultat:</label> <br>
+              <input type="text" #resultat placeholder="type du resultat"> <br>
+              <input type="file" name="Upload file" id="fileToUpload"><br>
+              <label>Durée estimée:</label> <br>
+              <input type="text" #dureee placeholder="durée"> <br>
+              <label>Charge:</label> <br>
+              <input type="text" #chargee placeholder="charge"> <br>
+              <label>Phase:</label> <br>
+              <input type="text" disabled value={{nomPhase}}> <br>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+              (click)="addTache(title.value, description.value, resultat.value, dureee.value, chargee.value)">Ajouter une
+              tâche</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- editer tache modal -->
+    <div class="modal fade" id="modifierModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Editer une tâche</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <label>Tâche:</label> <br>
+              <input type="text" #nom value={{tache?.nom}}> <br>
+              <label>Description:</label> <br>
+              <textarea type="text" #desc value={{tache?.description}}></textarea> <br>
+              <label>Resultat:</label> <br>
+              <input type="text" #result value={{tache?.resultat}}> <br>
+              <input type="file" name="Upload file" id="fileToUpload"><br>
+              <label>Durée estimée:</label> <br>
+              <input type="text" #duree value={{tache?.duree}}> <br>
+              <label>Charge:</label> <br>
+              <input type="text" #charge value={{tache?.charge}}> <br>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+              (click)="modifierModal(nom.value, desc.value, result.value,duree.value, charge.value)">Modifier</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- supprimer tache modal -->
+    <div class="modal fade" id="supprimerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Supprimer une tâche</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h2>Voulez-vous supprimer cette tâche?</h2>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal"
+              (click)="deleteModal()">Supprimer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
